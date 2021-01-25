@@ -1,0 +1,20 @@
+<div class="container">
+  <h2 class="text-center p-1">{{title}}</h2>
+  <nav class="navbar navbar-expand-sm bg-default">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a routerLink="add" class="btn btn-primary active" role="button" routerLinkActive="active">Create recipe</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="recipe" class="btn btn-primary active" role="button" routerLinkActive="active">View all recipe</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="ingredients" class="btn btn-primary active" role="button" routerLinkActive="active">View all ingredients</a>
+      </li>
+      <li class="nav-item">
+        <button (click)="logout($event)" class="btn btn-warning" role="button" >Logout</button>
+      </li>
+    </ul>
+  </nav>
+  <router-outlet></router-outlet>
+</div>

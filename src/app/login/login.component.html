@@ -1,0 +1,21 @@
+<div>
+  <form (ngSubmit)="onSubmit()" name="loginForm" id="loginForm" class="form-horizontal" [formGroup]="form">
+    <div class="container">
+      
+      <h1>Login</h1>
+      <strong class="text-danger">{{errMessage}}</strong>
+      <hr>
+      <label for="username"><b>Username</b></label>
+      <input type="text" placeholder="Enter username" [(ngModel)]="user.username" formControlName="username" name="username" id="username" required>
+
+      <label for="password"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" [(ngModel)]="user.password" formControlName="password" name="password" id="password" required>
+      
+      <button type="submit" class="registerbtn">Login</button>
+    </div>
+    
+    <div class="container signin">
+      <p>Don't have an account? <a href="register">Register</a>.</p>
+    </div>
+  </form>
+</div>

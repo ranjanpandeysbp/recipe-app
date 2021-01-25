@@ -1,0 +1,60 @@
+<h3>Create Recipe</h3>
+<div [hidden]="submitted" style="width: 350px;">
+    <form (ngSubmit)="onSubmit()" name="form1" id="form1" class="form-horizontal" [formGroup]="form">
+
+        <div class="form-group">
+          <div class="col-sm-12">
+            <label for="name" class="control-label">Recipe Name</label>
+            <input type="text" id="recipeName" name="recipeName" class="form-control" required  [(ngModel)]="recipe.recipeName" formControlName="recipeName">
+          </div>
+        </div>
+      
+        <div class="form-group">
+          <div class="col-sm-12">
+            <label for="noOfPeople" class="control-label">Servings for</label>
+            <input type="number" id="noOfPeople" name="noOfPeople" class="form-control" required [(ngModel)]="recipe.noOfPeople" formControlName="noOfPeople">
+          </div>
+        </div>
+      
+        <div class="form-group">
+          <div class="col-sm-12">
+            <label for="dishType" class="control-label">Dish type</label>
+            <input type="text" id="dishType" name="dishType" class="form-control" required [(ngModel)]="recipe.dishType" formControlName="dishType">
+          </div>
+        </div>
+      
+        <div class="form-group">
+            <div class="col-sm-12">
+              <label for="ingredientEntityList">Ingredients</label>
+              <ng-multiselect-dropdown 
+                formControlName="ingredientEntityList"
+                [placeholder]="'Select Ingredients'"
+                [data]="dropdownList"
+                [(ngModel)]="recipe.ingredientEntityList"
+                [settings]="dropdownSettings"
+                (onSelect)="onItemSelect($event)"
+                (onSelectAll)="onSelectAll($event)">
+              </ng-multiselect-dropdown>
+              <input type="text" id="ingredientEntityList" name="ingredientEntityList" style="display:none"  [(ngModel)]="recipe.ingredientEntityList" formControlName="ingredientEntityList" />
+            </div>
+          </div>
+      
+          <div class="form-group">
+              <div class="col-sm-12">
+                <label for="cookingInstruction" class="control-label">Cooking instruction</label>
+                <input type="text" id="cookingInstruction" name="cookingInstruction" class="form-control" required  [(ngModel)]="recipe.cookingInstruction" formControlName="cookingInstruction">
+              </div>
+            </div>
+        
+      
+        <button type="submit" class="btn btn-primary" [disabled]="!form.valid">
+          Submit
+        </button>
+      
+      </form>
+</div>
+<div [hidden]="!submitted">
+  <h4>Recipe successfully created!</h4>
+  <button class="btn btn-primary" (click)="newRecipe()">Create new recipe</button>
+</div>
+

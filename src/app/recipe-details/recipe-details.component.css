@@ -1,0 +1,23 @@
+table {
+    margin: 20px auto;
+    table-layout: fixed;
+  }
+  
+  table,
+  td,
+  th {
+    border-collapse: separate;
+  }
+  
+  td,
+  th {
+    padding: 10px;
+    text-align: left;
+    width: 180px;
+  }
+  
+  .overflow {
+  
+    overflow: auto;
+  }
+  
