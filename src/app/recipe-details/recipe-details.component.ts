@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { RecipeService } from '../recipe.service';
 import { Recipe } from '../recipe';
+import { Router } from '@angular/router';
  
 import { RecipeListComponent } from '../recipe-list/recipe-list.component';
-import { jsonpCallbackContext } from '@angular/common/http/src/module';
  
 @Component({
   selector: 'recipe-details',
@@ -14,7 +14,7 @@ export class RecipeDetailsComponent implements OnInit {
  
   @Input() recipe: Recipe;
  
-  constructor(private recipeService: RecipeService, private listComponent: RecipeListComponent) { }
+  constructor(private router: Router, private recipeService: RecipeService, private listComponent: RecipeListComponent) { }
  
   ngOnInit() {
   }
@@ -27,5 +27,8 @@ export class RecipeDetailsComponent implements OnInit {
           this.listComponent.reloadData();
         },
         error => console.log(error));
+  }
+  updateRecipe(id) {
+    this.router.navigate(['add', {'recipeId':id}]);
   }
 }

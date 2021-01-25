@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-
+import { ActivatedRoute } from '@angular/router';
 import { Recipe } from '../recipe';
 import { Ingredients } from "../ingredients";
 import { RecipeService } from '../recipe.service';
@@ -20,17 +20,39 @@ export class CreateRecipeComponent implements OnInit {
   dropdownList = [];
   selectedItems = [];
   dropdownSettings = {};
+  recipeId: any;
 
   form: FormGroup;
 
-  constructor(private recipeService: RecipeService, private formBuilder: FormBuilder) { }
+  constructor(private route: ActivatedRoute, private recipeService: RecipeService, private formBuilder: FormBuilder) { }
   
   ngOnInit() {
-    this.recipeService.getIngredientsList()
-    .subscribe(ingredientEntityList => {
-      console.log(ingredientEntityList);
-      this.dropdownList = ingredientEntityList as Ingredients[];
-    })
+
+    this.route.params.subscribe(params => {
+      this.recipeId = params['recipeId'];
+    });
+      console.log(this.recipeId);
+
+    if(this.recipeId){
+      this.recipeService.getRecipe(this.recipeId)
+      .subscribe(recipeData => {
+        this.recipe.id = this.recipeId;
+        this.recipe.recipeName = recipeData['recipeName'];
+        this.recipe.cookingInstruction = recipeData['cookingInstruction'];
+        this.recipe.creationDateTime = recipeData['creationDateTime'];
+        this.recipe.dishType = recipeData['dishType'];
+        this.recipe.ingredientEntityList = recipeData['ingredientEntityList'];
+        this.recipe.noOfPeople = recipeData['noOfPeople'];
+      });
+    }
+    else{
+      this.recipe = new Recipe();
+      this.recipeService.getIngredientsList()
+      .subscribe(ingredientEntityList => {
+        console.log(ingredientEntityList);
+        this.dropdownList = ingredientEntityList as Ingredients[];
+      });
+    }
 
     this.dropdownSettings = {
       singleSelection: false,
@@ -64,13 +86,17 @@ export class CreateRecipeComponent implements OnInit {
     this.recipe = new Recipe();
   }
   save() {
-    this.recipeService.createRecipe(this.recipe)
-    .subscribe(data => console.log(data), error => console.log(error));
-    this.recipe = new Recipe();
+    if(this.recipeId){
+      this.recipeService.updateRecipe(this.recipe)
+      .subscribe(data => console.log(data), error => console.log(error));
+    }else{
+      this.recipeService.createRecipe(this.recipe)
+      .subscribe(data => console.log(data), error => console.log(error));
+      this.recipe = new Recipe();
+    }
   }
   onSubmit() {
     this.submitted = true;
-    console.log(this.selectedItems)
     this.save();
   }
 }

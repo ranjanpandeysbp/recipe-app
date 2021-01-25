@@ -25,7 +25,7 @@ export class RecipeService {
       headers: new HttpHeaders()
         .set('Authorization',  `Bearer ${data.token}`)
     }
-    return this.http.get(`${this.baseUrlApi}`+`/api/v1/users/${data.userId}/recipes/${id}`);
+    return this.http.get(`${this.baseUrlApi}`+`/api/v1/users/${data.userId}/recipes/${id}`, header);
   }
 
   createRecipe(recipe: Object): Observable < Object > {
@@ -43,7 +43,7 @@ export class RecipeService {
       headers: new HttpHeaders()
         .set('Authorization',  `Bearer ${data.token}`)
     }
-    return this.http.put(`${this.baseUrlApi}`+ `/api/v1/users/${data.userId}/recipes`, value);
+    return this.http.put(`${this.baseUrlApi}`+ `/api/v1/users/${data.userId}/recipes`, value, header);
   }
 
   deleteRecipe(id: number): Observable < any > {
