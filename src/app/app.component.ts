@@ -22,6 +22,7 @@ export class AppComponent {
       this.showMenu = false;
     }
     this.router.onSameUrlNavigation = 'reload';
+    alert("Important Info: Please click on Login button and use Username=ranjan and Password=ranjan OR click on Register button for new account");
   }
 
   logout(event) {
